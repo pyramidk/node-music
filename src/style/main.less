@@ -1,0 +1,93 @@
+@import url('reset.less');
+@import url('utils.less');
+@import url('./ionicons/ionicons.less');
+@import url('./nav/nav.less');
+
+@import url('./toolbar/toolbar.less');
+
+@import url('song-card.less');
+@import url('grid.less');
+@import url('./toggle-play-button/toggle-play-button.less');
+@import url('./player/player.less');
+@import url('./spinner/spinner.less');
+
+// detail page
+@import url('./detail/song.less');
+@import url('./detail/song-list-item.less');
+@import url('./detail/waveform.less');
+@import url('./detail/waveform-bars.less');
+
+body {
+	background-color: #f4f4f4;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+}
+
+.content {
+  margin: 20px 0 80px;
+}
+
+.sticky .content {
+  margin-top: 80px;
+}
+
+a {
+  color: #3381b7;
+  text-decoration: none;
+  &:hover {
+  	text-decoration: underline;
+  }
+}
+
+.song-heart {
+	color: #ccc;
+  transition: color .2s ease-in-out;
+  &:hover {
+    color: #F9C5C5;
+    cursor: pointer;
+  }
+}
+
+.tab-content {
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+// for detail page
+.user-input-wrapper {
+    position: relative;
+    border-radius: 3px;
+    border: 1px solid #2B2B2B;
+    margin-top: 20px;
+
+    i {
+        position: absolute;
+        top: 4px;
+        left: 10px;
+        color: #808080;
+        pointer-events: none;
+        font-size: 14px;
+    }
+}
+
+input[type="text"].user-input {
+    width: 100%;
+    padding: 6px 10px 6px 30px;
+    font-weight: 300;
+    background-color: transparent;
+}
+
+.el-button--primary {
+    background-color: #3a3f41;
+    border-color: #3a3f41;
+}
+.el-button--primary:hover {
+    background-color: #222;
+    border-color: #222;
+}
+.el-dialog {
+  background-color: #f4f4f4;
+}
