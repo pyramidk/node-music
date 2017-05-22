@@ -11,8 +11,6 @@ var localStrategy = require('passport-local').Strategy;
 
 var config = require('./config');
 
-
-var url = 'mongodb://localhost:27017/conFusion';
 mongoose.connect(config.mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

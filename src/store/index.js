@@ -5,7 +5,7 @@ import * as getters from './getters'
 
 // import card from './modules/card'
 // import player from './modules/player'
-import login from './modules/login'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
@@ -15,7 +15,7 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    login
+    user
   },
   strict: debug
 })

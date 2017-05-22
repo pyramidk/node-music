@@ -16,8 +16,18 @@
   					<input type="text" class="nav-search-input" placeholder="SEARCH">
   				</div>
   			</div>
-  			<div class="nav-nav-item">
-          <button @click="toggleLogin">Sign in</button> or <button @click="toggleRegister">Create account</button>
+  			<div class="nav-nav-item">     
+          <div class="nav-user popover" v-show="!isLogin">
+            <button @click="toggleLogin">Sign in</button> or <button @click="toggleRegister">Create account</button>
+          </div>
+          <div class="nav-user popover" v-show="isLogin">
+            <div class="nav-user-link">
+              <button class="upload" @click="upload">Upload</button>
+              <i class="icon ion-person"></i>
+              <!-- <i class="icon ion-chevron-down"></i> -->
+              <i class="icon ion-log-out"></i>
+            </div>
+          </div>
   			</div>
   	  </div>
   	</div>
@@ -25,15 +35,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  mounted () {
+    this.$store.dispatch('init')
+  },
   methods: {
     toggleLogin () {
       this.$store.dispatch('toggleLogin')
     },
     toggleRegister () {
       this.$store.dispatch('toggleRegister')
+    },
+    upload () {
+      this.$store.dispatch('upload')
     }
-  }
+  },
+  computed: mapGetters([
+    'isLogin'
+  ])
 }
 </script>
 
