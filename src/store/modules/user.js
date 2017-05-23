@@ -22,9 +22,6 @@ const actions = {
     let loginStatus = localStorage.getItem(localKeys.LOGIN_STATUS)
     if (loginStatus) {
       console.log('test')
-      // let name = localStorage.getItem(localKeys.USER_NAME)
-      // let password = localStorage.getItem(localKeys.PASSWORD)
-      // actions.login({ commit }, { name, password })
       commit(types.LOGIN_STATUS)
     }
   },
@@ -59,18 +56,6 @@ const actions = {
         localStorage.setItem(localKeys.LOGIN_STATUS, state.isLogin)
         console.log('登录')
       }
-    })
-  },
-  upload: () => {
-    let token = localStorage.getItem(localKeys.USER_TOKEN)
-    axios.post('http://localhost:3000/dishes', {
-      name: 'zack',
-      description: 'update',
-      comment: [],
-      token: token
-    })
-    .then(function (response) {
-      console.log(response)
     })
   }
 }

@@ -6,6 +6,7 @@ import * as getters from './getters'
 // import card from './modules/card'
 // import player from './modules/player'
 import user from './modules/user'
+import upload from './modules/upload'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    user
+    user,
+    upload
   },
   strict: debug
 })

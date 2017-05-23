@@ -10,21 +10,14 @@
   			</div>
   		</div>
   		<div class="nav-nav float-right">
-  			<div class="nav-nav-item">
-  				<div class="nav-search">
-  					<i class="icon ion-search"></i>
-  					<input type="text" class="nav-search-input" placeholder="SEARCH">
-  				</div>
-  			</div>
   			<div class="nav-nav-item">     
           <div class="nav-user popover" v-show="!isLogin">
             <button @click="toggleLogin">Sign in</button> or <button @click="toggleRegister">Create account</button>
           </div>
           <div class="nav-user popover" v-show="isLogin">
             <div class="nav-user-link">
-              <button class="upload" @click="upload">Upload</button>
+              <button class="upload" @click="toggleUpload">Upload</button>
               <i class="icon ion-person"></i>
-              <!-- <i class="icon ion-chevron-down"></i> -->
               <i class="icon ion-log-out"></i>
             </div>
           </div>
@@ -46,6 +39,9 @@ export default {
     },
     toggleRegister () {
       this.$store.dispatch('toggleRegister')
+    },
+    toggleUpload () {
+      this.$store.dispatch('toggleUpload')
     },
     upload () {
       this.$store.dispatch('upload')

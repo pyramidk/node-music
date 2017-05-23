@@ -25,3 +25,6 @@ export const PLAY_PRE = 'PLAY_PRE'
 export const TOGGLE_LOGIN = 'TOGGLE_LOGIN'
 export const TOGGLE_REGISTER = 'TOGGLE_REGISTER'
 export const LOGIN_STATUS = 'LOGIN_STATUS'
+
+// upload
+export const TOGGLE_UPLOAD = 'TOGGLE_UPLOAD'
