@@ -7,6 +7,7 @@ import * as getters from './getters'
 // import player from './modules/player'
 import user from './modules/user'
 import upload from './modules/upload'
+import songs from './modules/songs'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
   getters,
   modules: {
     user,
-    upload
+    upload,
+    songs
   },
   strict: debug
 })

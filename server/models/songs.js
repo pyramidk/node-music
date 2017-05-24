@@ -22,13 +22,28 @@ var commentSchema = new Schema({
 });
 
 // create a schema
-var dishSchema = new Schema({
+var songSchema = new Schema({
     name: {
         type: String,
         required: true,
         unique: true
     },
-    description: {
+    singer: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    music: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    avatar: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    img: {
         type: String,
         required: true
     },
@@ -39,7 +54,7 @@ var dishSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var Dishes = mongoose.model('Dish', dishSchema);
+var Songs = mongoose.model('Song', songSchema);
 
 // make this available to our Node applications
-module.exports = Dishes;
+module.exports = Songs;

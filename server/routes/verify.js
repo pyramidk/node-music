@@ -38,7 +38,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 };
 
 exports.verifyAdmin = function (req, res, next) {
-    console.log('test admin');
+    console.log(req.decoded);
     var adminFlag = req.decoded._doc.admin;
     console.log(adminFlag);
     if (!adminFlag) {

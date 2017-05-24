@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 // 引入mongoose
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -22,7 +23,7 @@ db.once('open', function () {
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var dishRouter = require('./routes/dishRouter');
+var songRouter = require('./routes/songRouter');
 
 var app = express();
 
@@ -39,6 +40,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// 跨域
+app.use(cors());
 
 // passport config
 var User = require('./models/user');
@@ -53,7 +56,7 @@ app.use('/', index);
 app.use('/users', users);
 
 // 加入dish
-app.use('/dishes', dishRouter);
+app.use('/songs', songRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +64,20 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+//allow custom header and CORS
+// app.all('*',function (req, res, next) {
+//   req.header('Access-Control-Allow-Origin', '*');
+//   req.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, x-access-token');
+//   req.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+
+//   if (req.method == 'OPTIONS') {
+//     res.send(200); /让options请求快速返回/
+//   }
+//   else {
+//     next();
+//   }
+// });
 
 // error handlers
 // development error handler

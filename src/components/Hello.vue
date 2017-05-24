@@ -5,17 +5,18 @@
         <div class="col-7-10">
           <div class="song card">
             <div class="song-main">
-              <div class="song__image" style="background-image: );">
+              <div class="song__image">
+                <img src="../assets/bg/artworks-000212586185-4vf6cv-t300x300.jpg">
                 <div class="toggle-play-button">
                   <i class="toggle-play-button-icon ion-ios-play"></i>
                 </div>
               </div>
               <div class="song__info__wrap">
                 <div class="song__info">
-                  <div class="song-title">Mree - Lift Me Up (FlyBoy Remix)</div>
+                  <div class="song-title">THBD - Good For You</div>
                   <div class="song-user">
-                    <div class="song-user-image" style="background-image: ;"></div>
-                    <a class="song-username" href="/#/users/60557527" title="">Flyboy</a>
+                    <img class="song-list-item-user-image" src="../assets/avatar/avatars-000293637210-e2rt0z-large.jpg">
+                    <a class="song-username" href="/#/users/60557527" title="">THBD</a>
                   </div>
                   <div class="song-stats">
                     <div class="song-list-item-stat song-heart-count undefined popover">
@@ -30,17 +31,20 @@
             </div>
           </div>
           <div class="tab-content">
-            <div class="song-list-item ">
-              <div class="song-list-item__image" style="background-image: ;">
-                <div class="toggle-play-button"><i class="toggle-play-button-icon ion-ios-play"></i></div>
+            <div class="song-list-item" v-for="item in songsList">
+              <div class="song-list-item__image">
+                <img :src=item.img>
+                <div class="toggle-play-button">
+                  <i class="toggle-play-button-icon ion-ios-play"></i>
+                </div>
               </div>
               <div class="song-list-item__info__wrap">
                 <div class="song-list-item__info">
-                  <a class="song-list-item-title" href="/#/songs/302507194" title="">Iceland (feat. Gavrielle)</a>
+                  <a class="song-list-item-title" href="/#/songs/302507194">{{item.name}}</a>
                   <div class="song-list-item-info-extra">
                     <div class="song-list-item__user">
-                      <div class="song-list-item-user-image" style="background-image"></div>
-                      <a class="song-list-item-username" href="/#/users/60557527" title="">Flyboy</a>
+                      <img class="song-list-item-user-image" :src=item.avatar>
+                      <a class="song-list-item-username" href="/#/users/60557527">{{item.singer}}</a>
                     </div>
                     <div class="song-list-item-stats">
                       <div class="song-list-item-stat song-heart-count undefined popover">
@@ -56,7 +60,7 @@
                 <div class="waveform">
                   <canvas class="waveform-canvas"></canvas>
                   <div class="waveform-image-container">
-                    <img alt="song waveform" class="waveform-image">
+                    <img alt="song waveform" class="waveform-image" src="../assets/wave/wave.png">
                     <div class="waveform-image-bg" style="width: 0%;"></div>
                     <div>
                       <div class="waveform-play-highlight"></div>
@@ -69,7 +73,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -77,12 +80,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+  methods: {
+
+  },
+  mounted () {
+    this.$store.dispatch('getSongs')
+  },
+  computed: mapGetters([
+    'songsList'
+  ])
 }
 </script>

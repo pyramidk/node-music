@@ -2,19 +2,20 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var Dishes = require('../models/dishes');
+var Songs = require('../models/songs');
 
 var Verify = require('./verify');
 
-var dishRouter = express.Router();
+var songRouter = express.Router();
 
 // 将router response解析成json
-dishRouter.use(bodyParser.json());
-dishRouter.route('/')
+songRouter.use(bodyParser.json());
+songRouter.route('/')
+// .all()
 
-.get(Verify.verifyOrdinaryUser, function(req,res,next){
+.get(function(req,res,next){
 	
-	Dishes.find({})
+	Songs.find({})
 		.populate('comments.postedBy')
 		.exec(function (err, dish) {
 			if (err) throw err;
@@ -23,8 +24,7 @@ dishRouter.route('/')
 })
 
 .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next){
-	
-	Dishes.create(req.body, function (err, dish) {
+	Songs.create(req.body, function (err, dish) {
 		if (err) throw err;
 		console.log('Dish created!');
 
@@ -40,16 +40,16 @@ dishRouter.route('/')
 
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next){
 
-	Dishes.findByIdAndRemove({}, function (err, resp) {
+	Songs.findByIdAndRemove({}, function (err, resp) {
 		if (err) throw err;
 		res.json(resp);
 	});
 
 });
 
-dishRouter.route('/:dishId')
+songRouter.route('/:dishId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-	Dishes.findById(req.params.dishId)
+	Songs.findById(req.params.dishId)
 		.populate('comments.postedBy')
 		.exec(function (err, dish) {
 			if (err) throw err;
@@ -58,7 +58,7 @@ dishRouter.route('/:dishId')
 })
 
 .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-	Dishes.findByIdAndUpdate(req.params.dishId, {
+	Songs.findByIdAndUpdate(req.params.dishId, {
 		$set: req.body
 	}, {
 		new: true
@@ -69,18 +69,18 @@ dishRouter.route('/:dishId')
 })
 
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-	Dishes.findByIdAndRemove(req.params.dishId, function (err, resp) {        
+	Songs.findByIdAndRemove(req.params.dishId, function (err, resp) {        
 		if (err) throw err;
 		res.json(resp);
 	});
 });
 
 
-dishRouter.route('/:dishId/comments')
+songRouter.route('/:dishId/comments')
 .all(Verify.verifyOrdinaryUser)
 
 .get(function (req, res, next) {
-	Dishes.findById(req.params.dishId)
+	Songs.findById(req.params.dishId)
 		.populate('comments.postedBy')
 		.exec(function (err, dish) {
 			if (err) throw err;
@@ -89,7 +89,7 @@ dishRouter.route('/:dishId/comments')
 })
 
 .post(function (req, res, next) {
-	Dishes.findById(req.params.dishId, function (err, dish) {
+	Songs.findById(req.params.dishId, function (err, dish) {
 		if (err) throw err;
 
 		req.body.postedBy = req.decoded._doc._id;
@@ -104,7 +104,7 @@ dishRouter.route('/:dishId/comments')
 })
 
 .delete(Verify.verifyAdmin, function (req, res, next) {
-	Dishes.findById(req.params.dishId, function (err, dish) {
+	Songs.findById(req.params.dishId, function (err, dish) {
 		if (err) throw err;
 		for (var i = (dish.comments.length - 1); i >= 0; i--) {
 			dish.comments.id(dish.comments[i]._id).remove();
@@ -119,11 +119,11 @@ dishRouter.route('/:dishId/comments')
 	});
 });
 
-dishRouter.route('/:dishId/comments/:commentId')
+songRouter.route('/:dishId/comments/:commentId')
 .all(Verify.verifyOrdinaryUser)
 
 .get(function (req, res, next) {
-	Dishes.findById(req.params.dishId)
+	Songs.findById(req.params.dishId)
     .populate('comments.postedBy')
     .exec(function (err, dish) {
 	    if (err) throw err;
@@ -134,7 +134,7 @@ dishRouter.route('/:dishId/comments/:commentId')
 .put(function (req, res, next) {
     // We delete the existing commment and insert the updated
     // comment as a new comment
-    Dishes.findById(req.params.dishId, function (err, dish) {
+    Songs.findById(req.params.dishId, function (err, dish) {
     	if (err) throw err;
     	dish.comments.id(req.params.commentId).remove();
     	dish.comments.push(req.body);
@@ -147,7 +147,7 @@ dishRouter.route('/:dishId/comments/:commentId')
   })
 
 .delete(function (req, res, next) {
-	Dishes.findById(req.params.dishId, function (err, dish) {
+	Songs.findById(req.params.dishId, function (err, dish) {
 		//
 		if (dish.comments.id(req.params.commentId).postedBy != req.decoded._doc._id) {
 			var err = new Error('You are not authorized');
@@ -162,4 +162,4 @@ dishRouter.route('/:dishId/comments/:commentId')
 		});
 	});
 });
-module.exports = dishRouter;
+module.exports = songRouter;

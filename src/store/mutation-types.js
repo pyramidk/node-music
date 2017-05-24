@@ -28,3 +28,5 @@ export const LOGIN_STATUS = 'LOGIN_STATUS'
 
 // upload
 export const TOGGLE_UPLOAD = 'TOGGLE_UPLOAD'
+// songs
+export const GET_SONGS = 'GET_SONGS'
