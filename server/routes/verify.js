@@ -15,6 +15,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 
     // decode token
     if (token) {
+        console.log(token);
         // verifies secret and checks exp
         jwt.verify(token, config.secretKey, function (err, decoded) {
             if (err) {

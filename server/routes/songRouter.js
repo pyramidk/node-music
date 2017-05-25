@@ -25,6 +25,7 @@ songRouter.route('/')
 
 .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next){
 	Songs.create(req.body, function (err, dish) {
+		console.log('test');
 		if (err) throw err;
 		console.log('Dish created!');
 

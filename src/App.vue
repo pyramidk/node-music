@@ -5,6 +5,7 @@
     <Login></Login>
     <Register></Register>
     <Upload></Upload>
+    <Player></Player>
   </div>
 </template>
 
@@ -13,13 +14,15 @@ import CNav from './components/Nav'
 import Login from './components/Login'
 import Register from './components/Register'
 import Upload from './components/Upload'
+import Player from './components/Player'
 export default {
   name: 'app',
   components: {
     CNav,
     Login,
     Register,
-    Upload
+    Upload,
+    Player
   }
 }
 </script>

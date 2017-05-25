@@ -35,7 +35,8 @@ const actions = {
 // mutations
 const mutations = {
   [types.GET_PLAYLIST] (state, {rootState}) {
-    state.playList = rootState.card.cardList
+    state.playList = rootState.songs.songsTotal
+    console.log(state.playList)
   },
   [types.GET_PLAY_NOW] (state, {index}) {
     state.playNow = state.playList[index]
@@ -44,21 +45,21 @@ const mutations = {
     state.playStatus = true
     // active
     if (state.activeNum !== index || state.activeNum === 0) {
-      rootState.card.cardList[state.activeNum].isActive = false
-      rootState.card.cardList[state.activeNum].isPlaying = false
-      if (!rootState.card.cardList[state.activeNum].isPlaying) {
+      rootState.songs.songsTotal[state.activeNum].isActive = false
+      rootState.songs.songsTotal[state.activeNum].isPlaying = false
+      if (!rootState.songs.songsTotal[state.activeNum].isPlaying) {
         state.activeNum = index
       }
-      rootState.card.cardList[index].isActive = true
-      rootState.card.cardList[index].isPlaying = true
+      rootState.songs.songsTotal[index].isActive = true
+      rootState.songs.songsTotal[index].isPlaying = true
     } else {
-      rootState.card.cardList[index].isPlaying = true
+      rootState.songs.songsTotal[index].isPlaying = true
     }
   },
   [types.CHANGE_TO_PAUSE] (state, {rootState}) {
     state.playStatus = false
     // playing相关
-    rootState.card.cardList[state.activeNum].isPlaying = false
+    rootState.songs.songsTotal[state.activeNum].isPlaying = false
   }
 }
 

@@ -3,8 +3,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 
-// import card from './modules/card'
-// import player from './modules/player'
+import player from './modules/player'
 import user from './modules/user'
 import upload from './modules/upload'
 import songs from './modules/songs'
@@ -19,7 +18,8 @@ export default new Vuex.Store({
   modules: {
     user,
     upload,
-    songs
+    songs,
+    player
   },
   strict: debug
 })

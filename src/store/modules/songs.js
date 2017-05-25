@@ -4,21 +4,25 @@ import axios from 'axios'
 
 // initial state
 const state = {
-  songsList: []
+  songTop: [],
+  songsList: [],
+  songsTotal: []
 }
 
 // getters
 const getters = {
+  songTop: state => state.songTop,
   songsList: state => state.songsList
 }
 
 // actions
 const actions = {
   getSongs: ({ commit }) => {
-    // let token = localStorage.getItem(localKeys.USER_TOKEN)
     axios.get('http://localhost:3000/songs')
     .then(function (response) {
-      console.log(response)
+      response.data.forEach(item => {
+        commit(types.FORMAT_RESPONSE, {para: item})
+      })
       commit(types.GET_SONGS, { data: response.data })
     })
   }
@@ -27,7 +31,14 @@ const actions = {
 // mutations
 const mutations = {
   [types.GET_SONGS] (state, { data }) {
+    // state.songsTotal = data
+    state.songTop.push(data.shift())
     state.songsList = data
+    state.songsTotal = state.songTop.concat(state.songsList)
+  },
+  [types.FORMAT_RESPONSE] (state, {para}) {
+    para.isActive = false
+    para.isPlaying = false
   }
 }
 

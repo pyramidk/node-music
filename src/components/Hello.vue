@@ -3,20 +3,21 @@
     <div class="content">
       <div class="grid">
         <div class="col-7-10">
-          <div class="song card">
+          <div class="song card" v-for="item in songTop">
             <div class="song-main">
-              <div class="song__image">
-                <img src="../assets/bg/artworks-000212586185-4vf6cv-t300x300.jpg">
-                <div class="toggle-play-button">
+              <div class="song__image" @click="tooglePlay(0)">
+                <img :src="item.img">
+                <div class="toggle-play-button" :class="{'active': item.isActive, 'is-playing': item.isPlaying}">
                   <i class="toggle-play-button-icon ion-ios-play"></i>
+                  <i class="toggle-play-button-icon ion-radio-waves"></i>
                 </div>
               </div>
               <div class="song__info__wrap">
                 <div class="song__info">
-                  <div class="song-title">THBD - Good For You</div>
+                  <div class="song-title">{{item.name}}</div>
                   <div class="song-user">
-                    <img class="song-list-item-user-image" src="../assets/avatar/avatars-000293637210-e2rt0z-large.jpg">
-                    <a class="song-username" href="/#/users/60557527" title="">THBD</a>
+                    <img class="song-list-item-user-image" :src="item.avatar">
+                    <a class="song-username">{{item.singer}}</a>
                   </div>
                   <div class="song-stats">
                     <div class="song-list-item-stat song-heart-count undefined popover">
@@ -25,26 +26,27 @@
                     <div class="song-stat"><i class="icon ion-play"></i><span>786,349</span></div>
                     <div class="song-stat"><i class="icon ion-chatbubble"></i><span>667</span></div>
                   </div>
-                  <div class="song-description">55555</div>
+                  <div class="song-description">最佳推荐</div>
               </div>
               </div>
             </div>
           </div>
           <div class="tab-content">
-            <div class="song-list-item" v-for="item in songsList">
-              <div class="song-list-item__image">
+            <div class="song-list-item" v-for="(item, index) in songsList" :index="index">
+              <div class="song-list-item__image" @click="tooglePlay(index + 1)">
                 <img :src=item.img>
-                <div class="toggle-play-button">
+                <div class="toggle-play-button" :class="{'active': item.isActive, 'is-playing': item.isPlaying}">
                   <i class="toggle-play-button-icon ion-ios-play"></i>
+                  <i class="toggle-play-button-icon ion-radio-waves"></i>
                 </div>
               </div>
               <div class="song-list-item__info__wrap">
                 <div class="song-list-item__info">
-                  <a class="song-list-item-title" href="/#/songs/302507194">{{item.name}}</a>
+                  <a class="song-list-item-title">{{item.name}}</a>
                   <div class="song-list-item-info-extra">
                     <div class="song-list-item__user">
                       <img class="song-list-item-user-image" :src=item.avatar>
-                      <a class="song-list-item-username" href="/#/users/60557527">{{item.singer}}</a>
+                      <a class="song-list-item-username">{{item.singer}}</a>
                     </div>
                     <div class="song-list-item-stats">
                       <div class="song-list-item-stat song-heart-count undefined popover">
@@ -85,17 +87,41 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      index: ''
     }
   },
   methods: {
-
+    playHandler (index) {
+      this.index = index
+      this.$store.dispatch('getPlayData', index)
+      this.$parent.$children.forEach(item => {
+        if (item.$refs.audio) item.play(index)
+      })
+    },
+    pauseHandler (index) {
+      this.$parent.$children.forEach(item => {
+        if (item.$refs.audio) item.pause(index)
+      })
+    },
+    tooglePlay (index) {
+      console.log(index)
+      this.$nextTick(() => {
+        if (!this.$store.state.player.playStatus || this.index !== index) {
+          this.playHandler(index)
+        } else {
+          this.pauseHandler(index)
+        }
+      })
+    }
   },
   mounted () {
     this.$store.dispatch('getSongs')
   },
   computed: mapGetters([
-    'songsList'
+    'songTop',
+    'songsList',
+    'scrollLoading',
+    'playStatus'
   ])
 }
 </script>

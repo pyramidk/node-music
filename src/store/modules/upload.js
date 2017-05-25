@@ -19,6 +19,7 @@ const actions = {
   },
   upload: ({ commit }, { name, singer, music, avatar, img }) => {
     let token = localStorage.getItem(localKeys.USER_TOKEN)
+    console.log(token)
     axios.post('http://localhost:3000/songs', {
       name: name,
       singer: singer,
