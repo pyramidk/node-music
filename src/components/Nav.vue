@@ -15,10 +15,17 @@
             <button @click="toggleLogin">Sign in</button> or <button @click="toggleRegister">Create account</button>
           </div>
           <div class="nav-user popover" v-show="isLogin">
-            <div class="nav-user-link">
+            <div class="nav-user-link" @click="toggleLogout">
               <button class="upload" @click="toggleUpload">Upload</button>
               <i class="icon ion-person"></i>
-              <i class="icon ion-log-out"></i>
+              <i class="icon ion-chevron-down"></i>
+            </div>
+            <div class="nav-user-popover popover-content" v-show="showLogout">
+              <ul class="nav-user-popover-list">
+                <li class="nav-user-popover-item">
+                  <a href="#" class="button orange block" @click="logout">Logout SoundCloud</a>
+                </li>
+              </ul>
             </div>
           </div>
   			</div>
@@ -30,6 +37,11 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      showLogout: false
+    }
+  },
   mounted () {
     this.$store.dispatch('init')
   },
@@ -45,6 +57,12 @@ export default {
     },
     upload () {
       this.$store.dispatch('upload')
+    },
+    toggleLogout () {
+      this.showLogout = !this.showLogout
+    },
+    logout () {
+      this.$store.dispatch('logout')
     }
   },
   computed: mapGetters([

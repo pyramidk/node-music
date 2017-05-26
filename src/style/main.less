@@ -16,6 +16,10 @@
 @import url('./detail/song-list-item.less');
 @import url('./detail/waveform.less');
 @import url('./detail/waveform-bars.less');
+@import url('./detail/popover.less');
+@import url('./detail/button.less');
+@import url('./detail/comment.less');
+@import url('./detail/comments.less');
 
 body {
 	background-color: #f4f4f4;
@@ -109,5 +113,32 @@ input[type="text"].user-input {
   }
   .toggle-play-button {
     margin-top: -123px;
+  }
+}
+
+// comment 
+.comments {
+  .user-input-wrapper {
+    margin-top: 0px;
+    background-color: #fff;
+    border-bottom: 1px solid #e3e3e3;
+    border-left: 1px solid #e3e3e3;
+    border-right: 1px solid #e3e3e3;
+    border-top: none;
+    i {
+      left: 17px;
+    }
+    .user-input {
+      padding-left: 52px;
+      padding-right: 28px;
+    }
+    span {
+      position: absolute;
+      top: 4px;
+      right: 15px;
+      color: #808080;
+      font-size: 14px;
+      cursor: pointer;
+    }
   }
 }

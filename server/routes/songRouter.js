@@ -17,24 +17,23 @@ songRouter.route('/')
 	
 	Songs.find({})
 		.populate('comments.postedBy')
-		.exec(function (err, dish) {
+		.exec(function (err, song) {
 			if (err) throw err;
-			res.json(dish);
+			res.json(song);
 		});
 })
 
 .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next){
-	Songs.create(req.body, function (err, dish) {
-		console.log('test');
+	Songs.create(req.body, function (err, song) {
 		if (err) throw err;
-		console.log('Dish created!');
+		console.log('Song created!');
 
-		var id = dish._id;
+		var id = song._id;
 		res.writeHead(200, {
 			'Content-Type': 'text/plain'
 		});
 
-		res.end('Added the dish with id: ' + id);
+		res.end('Added the song with id: ' + id);
 	});
 
 })
@@ -77,29 +76,30 @@ songRouter.route('/:dishId')
 });
 
 
-songRouter.route('/:dishId/comments')
-.all(Verify.verifyOrdinaryUser)
+songRouter.route('/:songId/comments')
+// .all(Verify.verifyOrdinaryUser)
 
 .get(function (req, res, next) {
-	Songs.findById(req.params.dishId)
+	console.log(req.params.songId);
+	Songs.findById(req.params.songId)
 		.populate('comments.postedBy')
-		.exec(function (err, dish) {
+		.exec(function (err, song) {
 			if (err) throw err;
-			res.json(dish.comments);
+			res.json(song.comments);
 		});
 })
 
-.post(function (req, res, next) {
-	Songs.findById(req.params.dishId, function (err, dish) {
+.post(Verify.verifyOrdinaryUser, function (req, res, next) {
+	Songs.findById(req.params.songId, function (err, song) {
 		if (err) throw err;
-
+		console.log(req.body);
 		req.body.postedBy = req.decoded._doc._id;
 
-		dish.comments.push(req.body);
-		dish.save(function (err, dish) {
+		song.comments.push(req.body);
+		song.save(function (err, song) {
 			if (err) throw err;
 			console.log('Updated Comments!');
-			res.json(dish);
+			res.json(song);
 		});
 	});
 })
@@ -149,7 +149,7 @@ songRouter.route('/:dishId/comments/:commentId')
 
 .delete(function (req, res, next) {
 	Songs.findById(req.params.dishId, function (err, dish) {
-		//
+
 		if (dish.comments.id(req.params.commentId).postedBy != req.decoded._doc._id) {
 			var err = new Error('You are not authorized');
 			err.status = 403;

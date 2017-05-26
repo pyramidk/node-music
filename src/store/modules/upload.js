@@ -28,18 +28,6 @@ const actions = {
       img: img,
       token: token
     })
-    // axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3000/songs',
-    //   headers: {'x-access-token': token},
-    //   data: {
-    //     name: name,
-    //     singer: singer,
-    //     music: music,
-    //     img: img,
-    //     token: token
-    //   }
-    // })
     .then(function (response) {
       console.log(response)
       commit(types.TOGGLE_UPLOAD)

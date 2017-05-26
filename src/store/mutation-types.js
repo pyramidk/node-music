@@ -25,8 +25,11 @@ export const PLAY_PRE = 'PLAY_PRE'
 export const TOGGLE_LOGIN = 'TOGGLE_LOGIN'
 export const TOGGLE_REGISTER = 'TOGGLE_REGISTER'
 export const LOGIN_STATUS = 'LOGIN_STATUS'
+export const LOGOUT = 'LOGOUT'
 
 // upload
 export const TOGGLE_UPLOAD = 'TOGGLE_UPLOAD'
 // songs
 export const GET_SONGS = 'GET_SONGS'
+export const GET_COMMENTS = 'GET_COMMENTS'
+export const GET_SONGID = 'GET_SONGID'

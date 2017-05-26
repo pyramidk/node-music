@@ -40,6 +40,7 @@ const mutations = {
   },
   [types.GET_PLAY_NOW] (state, {index}) {
     state.playNow = state.playList[index]
+    console.log(state.playNow)
   },
   [types.CHANGE_TO_PLAY] (state, {rootState, index}) {
     state.playStatus = true

@@ -21,7 +21,6 @@ const actions = {
   init: ({ commit }) => {
     let loginStatus = localStorage.getItem(localKeys.LOGIN_STATUS)
     if (loginStatus) {
-      console.log('test')
       commit(types.LOGIN_STATUS)
     }
   },
@@ -57,6 +56,12 @@ const actions = {
         console.log('登录')
       }
     })
+  },
+  logout: ({ commit }) => {
+    localStorage.removeItem(localKeys.USER_TOKEN)
+    localStorage.removeItem(localKeys.USER_NAME)
+    localStorage.removeItem(localKeys.LOGIN_STATUS)
+    commit(types.LOGOUT)
   }
 }
 
@@ -71,6 +76,9 @@ const mutations = {
   [types.LOGIN_STATUS] (state) {
     state.isLogin = true
     state.loginVisible = false
+  },
+  [types.LOGOUT] (state) {
+    state.isLogin = false
   }
 }
 

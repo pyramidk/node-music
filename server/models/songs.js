@@ -3,12 +3,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
-  rating:  {
-    type: Number,
-    min: 1,
-    max: 5,
-    required: true
-  },
   comment:  {
     type: String,
     required: true
@@ -26,26 +20,27 @@ var songSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     singer: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     music: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     avatar: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     img: {
         type: String,
-        required: true
+        required: true,
+        unique: false
     },
     comments:[commentSchema]
 }, {

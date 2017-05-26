@@ -1,10 +1,12 @@
 var User = require('../models/user');
-var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+// used to create, sign, and verify tokens
+var jwt = require('jsonwebtoken'); 
 var config = require('../config.js');
 
 exports.getToken = function (user) {
+    // expiresIn is the time the token last
     return jwt.sign(user, config.secretKey, {
-        expiresIn: 3600
+        expiresIn: 3600000
     });
 };
 
@@ -15,7 +17,6 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 
     // decode token
     if (token) {
-        console.log(token);
         // verifies secret and checks exp
         jwt.verify(token, config.secretKey, function (err, decoded) {
             if (err) {
@@ -39,7 +40,6 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 };
 
 exports.verifyAdmin = function (req, res, next) {
-    console.log(req.decoded);
     var adminFlag = req.decoded._doc.admin;
     console.log(adminFlag);
     if (!adminFlag) {

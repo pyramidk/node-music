@@ -27,7 +27,10 @@
                     <div class="song-stat"><i class="icon ion-chatbubble"></i><span>667</span></div>
                   </div>
                   <div class="song-description">最佳推荐</div>
+                </div>
               </div>
+              <div class="song-waveform">
+                <Wave></Wave>
               </div>
             </div>
           </div>
@@ -59,23 +62,12 @@
                 </div>
               </div>
               <div class="song-list-item-waveform">
-                <div class="waveform">
-                  <canvas class="waveform-canvas"></canvas>
-                  <div class="waveform-image-container">
-                    <img alt="song waveform" class="waveform-image" src="../assets/wave/wave.png">
-                    <div class="waveform-image-bg" style="width: 0%;"></div>
-                    <div>
-                      <div class="waveform-play-highlight"></div>
-                      <div class="waveform-play-highlight-icon">
-                        <i class="icon ion-ios-play"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <Wave></Wave>
+              </div> 
             </div>
           </div>
         </div>
+        <Comment></Comment>
       </div>
     </div>
   </div>
@@ -83,12 +75,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Wave from './Wave'
+import Comment from './Comment'
 export default {
   name: 'hello',
   data () {
     return {
       index: ''
     }
+  },
+  mounted () {
+    this.$store.dispatch('getSongs')
   },
   methods: {
     playHandler (index) {
@@ -97,6 +94,8 @@ export default {
       this.$parent.$children.forEach(item => {
         if (item.$refs.audio) item.play(index)
       })
+      //
+      this.$store.dispatch('getComments', index)
     },
     pauseHandler (index) {
       this.$parent.$children.forEach(item => {
@@ -113,15 +112,19 @@ export default {
         }
       })
     }
-  },
-  mounted () {
-    this.$store.dispatch('getSongs')
+    // getComments (index) {
+    //   this.$store.dispatch('getComments', index)
+    // }
   },
   computed: mapGetters([
     'songTop',
     'songsList',
     'scrollLoading',
     'playStatus'
-  ])
+  ]),
+  components: {
+    Wave,
+    Comment
+  }
 }
 </script>
