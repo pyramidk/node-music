@@ -36,11 +36,9 @@ const actions = {
 const mutations = {
   [types.GET_PLAYLIST] (state, {rootState}) {
     state.playList = rootState.songs.songsTotal
-    console.log(state.playList)
   },
   [types.GET_PLAY_NOW] (state, {index}) {
     state.playNow = state.playList[index]
-    console.log(state.playNow)
   },
   [types.CHANGE_TO_PLAY] (state, {rootState, index}) {
     state.playStatus = true

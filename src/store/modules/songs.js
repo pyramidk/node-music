@@ -14,7 +14,8 @@ const state = {
 // getters
 const getters = {
   songTop: state => state.songTop,
-  songsList: state => state.songsList
+  songsList: state => state.songsList,
+  comments: state => state.comments
 }
 
 // actions
@@ -22,7 +23,6 @@ const actions = {
   getSongs: ({ commit }) => {
     axios.get('http://localhost:3000/songs')
     .then(function (response) {
-      console.log(response)
       response.data.forEach(item => {
         commit(types.FORMAT_RESPONSE, {para: item})
       })
@@ -34,10 +34,8 @@ const actions = {
   },
   getComments: ({ commit }, index) => {
     commit(types.GET_SONGID, {index: index})
-    console.log(state.id)
     axios.get('http://localhost:3000/songs/' + state.id + '/comments')
     .then(function (response) {
-      // console.log(response)
       commit(types.GET_COMMENTS, {comments: response.data})
     })
   },
@@ -48,8 +46,11 @@ const actions = {
       comment: comment,
       token: token
     })
-    .then(function (response) {
-      console.log(response)
+    .then(function () {
+      axios.get('http://localhost:3000/songs/' + state.id + '/comments')
+      .then(function (response) {
+        commit(types.GET_COMMENTS, {comments: response.data})
+      })
     })
   }
 }
@@ -57,6 +58,8 @@ const actions = {
 // mutations
 const mutations = {
   [types.GET_SONGS] (state, { data }) {
+    // fix update bug
+    state.songTop = []
     state.songTop.push(data.shift())
     state.songsList = data
     state.songsTotal = state.songTop.concat(state.songsList)

@@ -17,9 +17,8 @@ const actions = {
   toggleUpload: ({ commit }) => {
     commit(types.TOGGLE_UPLOAD)
   },
-  upload: ({ commit }, { name, singer, music, avatar, img }) => {
+  upload: ({ commit, dispatch }, { name, singer, music, avatar, img }) => {
     let token = localStorage.getItem(localKeys.USER_TOKEN)
-    console.log(token)
     axios.post('http://localhost:3000/songs', {
       name: name,
       singer: singer,
@@ -29,7 +28,7 @@ const actions = {
       token: token
     })
     .then(function (response) {
-      console.log(response)
+      dispatch('getSongs')
       commit(types.TOGGLE_UPLOAD)
     })
   }

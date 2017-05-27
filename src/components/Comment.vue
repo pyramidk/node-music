@@ -9,37 +9,42 @@
           </div>
         </div>
         <div class="sidebar-content null">
-          <div class="comment" style="animation-delay: 0ms;">
-            <div class="comment-image" style="background-image: url(&quot;https://i1.sndcdn.com/avatars-000294004882-x15kra-t300x300.jpg&quot;);"></div>
+          <div class="comment" v-for="item in comments">
+            <div class="comment-image" style="background-image: url(&quot;http://oqg43bh6k.bkt.clouddn.com/comment/jpg/comment.jpg&quot;);"></div>
             <div class="comment-info">
-              <div class="comment-comment">Aloha!</div>
-              <div class="comment-username">PREETA</div>
+              <div class="comment-comment">{{item.comment}}</div>
+              <div class="comment-username">{{item.postedBy.username}}</div>
             </div>
-            <div class="comment-time">00:00</div></div>
-        </div>
-        <div class="user-input-wrapper">
-          <i class="ion-chatbox-working"></i>
-          <input type="text" class="user-input" placeholder="add comment" v-model="comment">
-          <span class="ion-paper-airplane" @click="addComment(comment)"></span>    
-        </div>
+            <div class="comment-time">00:00</div>
+          </div>
+          <div class="user-input-wrapper">
+            <i class="ion-chatbox-working"></i>
+            <input type="text" class="user-input" placeholder="add comment" v-model="comment">
+            <span class="ion-paper-airplane" @click="addComment(comment)"></span>    
+          </div>
+        </div> 
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        comment: ''
-      }
-    },
-    methods: {
-      addComment (comment) {
-        console.log('add')
-        this.$store.dispatch('postComments', { comment })
-      }
+import { mapGetters } from 'vuex'
+export default {
+  data () {
+    return {
+      comment: ''
     }
-  }
+  },
+  methods: {
+    addComment (comment) {
+      console.log('add')
+      this.$store.dispatch('postComments', { comment })
+    }
+  },
+  computed: mapGetters([
+    'comments'
+  ])
+}
 </script>
 

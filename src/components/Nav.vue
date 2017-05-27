@@ -15,10 +15,10 @@
             <button @click="toggleLogin">Sign in</button> or <button @click="toggleRegister">Create account</button>
           </div>
           <div class="nav-user popover" v-show="isLogin">
-            <div class="nav-user-link" @click="toggleLogout">
+            <div class="nav-user-link">
               <button class="upload" @click="toggleUpload">Upload</button>
               <i class="icon ion-person"></i>
-              <i class="icon ion-chevron-down"></i>
+              <i class="icon ion-chevron-down" @click="toggleLogout"></i>
             </div>
             <div class="nav-user-popover popover-content" v-show="showLogout">
               <ul class="nav-user-popover-list">

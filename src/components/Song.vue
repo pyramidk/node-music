@@ -94,7 +94,6 @@ export default {
       this.$parent.$children.forEach(item => {
         if (item.$refs.audio) item.play(index)
       })
-      //
       this.$store.dispatch('getComments', index)
     },
     pauseHandler (index) {
@@ -112,9 +111,6 @@ export default {
         }
       })
     }
-    // getComments (index) {
-    //   this.$store.dispatch('getComments', index)
-    // }
   },
   computed: mapGetters([
     'songTop',
