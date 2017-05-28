@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     addComment (comment) {
-      console.log('add')
       this.$store.dispatch('postComments', { comment })
     }
   },
