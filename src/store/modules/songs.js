@@ -41,7 +41,6 @@ const actions = {
   },
   postComments: ({ commit }, { comment }) => {
     let token = localStorage.getItem(localKeys.USER_TOKEN)
-    console.log(comment)
     axios.post('http://localhost:3000/songs/' + state.id + '/comments', {
       comment: comment,
       token: token
