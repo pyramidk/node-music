@@ -78,7 +78,6 @@ import { mapGetters } from 'vuex'
 import Wave from './Wave'
 import Comment from './Comment'
 export default {
-  name: 'hello',
   data () {
     return {
       index: ''
@@ -102,7 +101,6 @@ export default {
       })
     },
     tooglePlay (index) {
-      console.log(index)
       this.$nextTick(() => {
         if (!this.$store.state.player.playStatus || this.index !== index) {
           this.playHandler(index)

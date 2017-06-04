@@ -59,7 +59,6 @@ export default {
       this.$store.dispatch('upload')
     },
     toggleLogout () {
-      console.log('test')
       this.showLogout = !this.showLogout
     },
     logout () {

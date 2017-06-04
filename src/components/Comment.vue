@@ -10,7 +10,7 @@
         </div>
         <div class="sidebar-content null">
           <div class="comment" v-for="item in comments">
-            <div class="comment-image" style="background-image: url(&quot;http://oqg43bh6k.bkt.clouddn.com/comment/jpg/comment.jpg&quot;);"></div>
+            <div class="comment-image" style="background-image: url(../static/avatar/comment.jpg)"></div>
             <div class="comment-info">
               <div class="comment-comment">{{item.comment}}</div>
               <div class="comment-username">{{item.postedBy.username}}</div>
